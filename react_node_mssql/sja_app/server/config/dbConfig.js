@@ -1,5 +1,5 @@
 // dbconfig.js
-require('dotenv').config();
+require("dotenv").config();
 
 const dbConfig = {
   user: process.env.DB_USER,
@@ -7,8 +7,8 @@ const dbConfig = {
   server: process.env.DB_SERVER,
   database: process.env.DB_DATABASE,
   options: {
-    trustServerCertificate: true
-  }
+    trustServerCertificate: true,
+  },
 };
 
 module.exports = dbConfig;

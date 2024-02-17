@@ -1,8 +1,8 @@
+// server.js
 const express = require("express");
 const bodyParser = require("body-parser");
-const sql = require("mssql");
 const customCorsMiddleware = require("./middleware/customCorsMiddleware");
-const dbConfig = require("./config/dbConfig"); // Import the SQL Server configuration
+const userRouter = require("./routes/userRouter"); // Import the user router
 require("dotenv").config();
 
 const app = express();
@@ -12,19 +12,8 @@ const NODE_APP_PORT = process.env.SERVER_PORT || 5001;
 app.use(bodyParser.json());
 app.use(customCorsMiddleware);
 
-// API to fetch users data
-app.get("/users", async (req, res) => {
-  try {
-    const pool = await sql.connect(dbConfig); // Use dbConfig for SQL Server configuration
-    const result = await pool.request().query("SELECT * FROM users");
-    res.json(result.recordset);
-  } catch (err) {
-    console.error("SQL error", err);
-    res
-      .status(500)
-      .json({ error: "Internal Server Error", message: err.message });
-  }
-});
+// Use the user router for user-related routes
+app.use("/api", userRouter);
 
 // Start server
 app.listen(NODE_APP_PORT, () =>
