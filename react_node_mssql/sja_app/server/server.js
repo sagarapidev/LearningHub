@@ -1,16 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sql = require('mssql');
-const cors = require('cors');
+const customCorsMiddleware = require('./middleware/customCorsMiddleware'); // Import the custom CORS middleware
 require('dotenv').config();
 
 const app = express();
-const crosOrgin={"origin":"http://localhost:5000"}
-const NODE_APP_PORT = process.env.SERVER_PORT;
+const NODE_APP_PORT = process.env.SERVER_PORT || 5001; // Fallback to 5001 if SERVER_PORT is not defined
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors(crosOrgin));
+app.use(customCorsMiddleware); // Use the custom CORS middleware here
 
 // SQL Server configuration
 const config = {
