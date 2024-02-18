@@ -13,3 +13,10 @@ npx tailwindcss init
     |- add input.css in src/input.css
 
 npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
+
+### Antd Design
+
+npm install antd --save
+or
+###specific version
+npm install antd@4.21.1
